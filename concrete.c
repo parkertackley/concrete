@@ -200,6 +200,13 @@ void editorProcessKeypress() {  //
             write(STDOUT_FILENO, "\x1b[H", 3);      // cursor to top right
             exit(0);
             break;
+        
+        case 'w':
+        case 'a':
+        case 's':
+        case 'd':
+            editorMoveCursor(c);
+            break;
     }
 }
 
