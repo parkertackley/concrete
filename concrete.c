@@ -11,6 +11,13 @@
 #define CONCRETE_VERSION "0.0.1"
 #define CTRL_KEY(k) ((k) & 0x1f)
 
+enum editorKey {
+    ARROW_LEFT = 1000,  // rest of values get incrementing values
+    ARROW_RIGHT,
+    ARROW_UP,
+    ARROW_DOWN
+};
+
 /* Data */
 struct editorConfig {   // saves the original terminal flags
     int cx, cy;         // cursors coords
@@ -52,7 +59,7 @@ void enableRawMode() {      // sets terminal up for concrete controls
 
 }
 
-char editorReadKey() {
+int editorReadKey() {
     int nread;
     char c;
     while((nread = read(STDIN_FILENO, &c, 1)) != 1) {
@@ -71,13 +78,13 @@ char editorReadKey() {
         if(seq[0] == '[') {
             switch (seq[1]) {
                 case 'A':
-                    return 'w';
+                    return ARROW_UP;
                 case 'B':
-                    return 's';
+                    return ARROW_DOWN;
                 case 'C':
-                    return 'd';
+                    return ARROW_LEFT;
                 case 'D':
-                    return 'a';
+                    return ARROW_RIGHT;
             }
         }
         return '\x1b';
@@ -198,25 +205,25 @@ void editorRefreshScreen() {
 }
 
 /* input */
-void editorMoveCursor(char key) {
+void editorMoveCursor(int key) {
     switch (key) {
-        case 'a':
+        case ARROW_LEFT:
             --E.cx;
             break;
-        case 'd':
+        case ARROW_RIGHT:
             ++E.cx;
             break;
-        case 's':
+        case ARROW_DOWN:
             --E.cy;
             break;
-        case 'w':
+        case ARROW_UP:
             ++E.cy;
             break;
     }
 }
 
 void editorProcessKeypress() {  // 
-    char c = editorReadKey();
+    int c = editorReadKey();
 
     switch (c) {
         case CTRL_KEY('q'):
@@ -225,10 +232,10 @@ void editorProcessKeypress() {  //
             exit(0);
             break;
         
-        case 'w':
-        case 'a':
-        case 's':
-        case 'd':
+        case ARROW_UP:
+        case ARROW_LEFT:
+        case ARROW_RIGHT:
+        case ARROW_DOWN:
             editorMoveCursor(c);
             break;
     }
