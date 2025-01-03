@@ -102,17 +102,6 @@ int getWindowSize(int *rows, int *cols) {
 }
 
 /* terminal */
-void editorProcessKeypress() {  // 
-    char c = editorReadKey();
-
-    switch (c) {
-        case CTRL_KEY('q'):
-            write(STDOUT_FILENO, "\x1b[2J", 4);     // clears screen
-            write(STDOUT_FILENO, "\x1b[H", 3);      // cursor to top right
-            exit(0);
-            break;
-    }
-}
 
 /* append buffer */
 struct abuf {
@@ -125,11 +114,11 @@ struct abuf {
 void abAppend(struct abuf *ab, const char *s, int len) {
     char *new = realloc(ab->b, ab->len + len);
 
-    if(new == NULL) {
-        memcpy(&new[ab->len], s, len);
-        ab->b = new;
-        ab->len += len;
-    }
+    if(new == NULL)
+        return;
+    memcpy(&new[ab->len], s, len);
+    ab->b = new;
+    ab->len += len;
 }
 
 void abFree(struct abuf *ab) {
@@ -151,15 +140,16 @@ void editorDrawsRows(struct abuf *ab) {
                 --padding;
             }
 
-            while(--padding)
+            while(--padding) {
                 abAppend(ab, " ", 1);
+            }
         
             abAppend(ab, welcome, welcomelen);
         } else {
             abAppend(ab, "~", 1);
         }
 
-        abAppend(ab, "x1b[K", 3);      // clears each line for better optimization
+        abAppend(ab, "\x1b[K", 3);      // clears each line for better optimization
         if(y < E.screenrows - 1)
             abAppend(ab, "\r\n", 2);
     }
@@ -173,18 +163,51 @@ void editorRefreshScreen() {
 
     editorDrawsRows(&ab);
 
-    abAppend(&ab, "\x1b[H", 3);
+    char buf[32];
+    snprintf(buf, sizeof(buf), "\x1b[%d;%dH", E.cy + 1, E.cx + 1);
+    abAppend(&ab, buf, strlen(buf));
+
     abAppend(&ab, "\x1b[?25h", 6);
 
     write(STDIN_FILENO, ab.b, ab.len);
     abFree(&ab);
 }
 
+/* input */
+void editorMoveCursor(char key) {
+    switch (key) {
+        case 'a':
+            --E.cx;
+            break;
+        case 'd':
+            ++E.cx;
+            break;
+        case 's':
+            --E.cy;
+            break;
+        case 'w':
+            ++E.cy;
+            break;
+    }
+}
+
+void editorProcessKeypress() {  // 
+    char c = editorReadKey();
+
+    switch (c) {
+        case CTRL_KEY('q'):
+            write(STDOUT_FILENO, "\x1b[2J", 4);     // clears screen
+            write(STDOUT_FILENO, "\x1b[H", 3);      // cursor to top right
+            exit(0);
+            break;
+    }
+}
+
 /* init */
 void initEditor() {
     E.cx = 0;
     E.cy = 0;
-    
+
     if(getWindowSize(&E.screenrows, &E.screencols) == -1)
         die("getWindowSize");
 }
