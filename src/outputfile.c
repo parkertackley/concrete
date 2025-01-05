@@ -19,16 +19,16 @@ void editorDrawsRows(struct abuf *ab) {
                 while(--padding) {
                     abAppend(ab, " ", 1);
                 }
-            
                 abAppend(ab, welcome, welcomelen);
             } else {
                 abAppend(ab, "~", 1);
             }
         } else {
-            int len = E.row.size;
-            if(len > E.screencols)
+            int len = E.row[y].size;
+            if(len > E.screencols) {
                 len = E.screencols;
-            abAppend(ab, E.row.chars, len);
+            }
+            abAppend(ab, E.row[y].chars, len);
         }
         
 

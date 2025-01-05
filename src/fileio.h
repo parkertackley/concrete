@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "definestruct.h"
+#include "rowoperations.h"
 
 void editorOpen();
 

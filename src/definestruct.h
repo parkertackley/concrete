@@ -1,6 +1,10 @@
 #ifndef DEFINESTRUCT_H
 #define DEFINESTRUCT_H
 
+#define _DEFAULT_SOURCE
+#define _BSD_SOURCE
+#define _GNU_SOURCE
+
 #include <termios.h>
 #include <stdlib.h>
 
@@ -28,7 +32,7 @@ struct editorConfig {   // saves the original terminal flags
     int cx, cy;         // cursors coords
     int screenrows, screencols;
     int numrows;
-    erow row;
+    erow *row;
     struct termios orig_termios;
 };
 
