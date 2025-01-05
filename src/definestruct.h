@@ -19,9 +19,16 @@ enum editorKey {
     PAGE_DOWN
 };
 
+typedef struct erow {
+    int size;
+    char *chars;
+} erow;
+
 struct editorConfig {   // saves the original terminal flags
     int cx, cy;         // cursors coords
     int screenrows, screencols;
+    int numrows;
+    erow row;
     struct termios orig_termios;
 };
 
