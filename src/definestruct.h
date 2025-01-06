@@ -31,6 +31,7 @@ typedef struct erow {
 struct editorConfig {   // saves the original terminal flags
     int cx, cy;         // cursors coords
     int rowoff;
+    int coloff;
     int screenrows, screencols;
     int numrows;
     erow *row;
