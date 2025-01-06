@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+void editorScroll();
 void editorDrawsRows(struct abuf *ab);
 void editorRefreshScreen();
 
