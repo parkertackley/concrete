@@ -42,6 +42,8 @@ void editorMoveCursor(int key) {
 }
 
 void editorProcessKeypress() {
+    static int quit_times = CONCRETE_QUIT_TIMES;
+
     int c = editorReadKey();
 
     switch (c) {
@@ -50,6 +52,11 @@ void editorProcessKeypress() {
             break;
 
         case CTRL_KEY('q'):
+            if(E.dirty && quit_times > 0) {
+                editorSetStatusMessage("!!!Warning!!! File has unsaved changes! Press Ctrl-Q %d more times to quit.", quit_times);
+                quit_times--;
+                return;
+            }
             write(STDOUT_FILENO, "\x1b[2J", 4);     // clears screen
             write(STDOUT_FILENO, "\x1b[H", 3);      // cursor to top right
             exit(0);
@@ -106,4 +113,5 @@ void editorProcessKeypress() {
             editorInsertChar(c);
             break;
     }
+    quit_times = CONCRETE_QUIT_TIMES;
 }

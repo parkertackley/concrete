@@ -11,6 +11,7 @@
 
 #define CONCRETE_VERSION "0.0.1"
 #define CONCRETE_TAB_STOP 8
+#define CONCRETE_QUIT_TIMES 3
 
 #define CTRL_KEY(k) ((k) & 0x1f)
 
@@ -42,6 +43,7 @@ struct editorConfig {   // saves the original terminal flags
     int screenrows, screencols;
     int numrows;
     erow *row;
+    int dirty;
     char *filename;
     char statusmsg[80];
     time_t statusmsg_time;
