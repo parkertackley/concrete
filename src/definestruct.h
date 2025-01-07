@@ -7,8 +7,11 @@
 
 #include <termios.h>
 #include <stdlib.h>
+#include <time.h>
 
 #define CONCRETE_VERSION "0.0.1"
+#define CONCRETE_TAB_STOP 8
+
 #define CTRL_KEY(k) ((k) & 0x1f)
 
 enum editorKey {
@@ -25,16 +28,22 @@ enum editorKey {
 
 typedef struct erow {
     int size;
+    int rsize;
     char *chars;
+    char *render;
 } erow;
 
 struct editorConfig {   // saves the original terminal flags
     int cx, cy;         // cursors coords
+    int rx;
     int rowoff;
     int coloff;
     int screenrows, screencols;
     int numrows;
     erow *row;
+    char *filename;
+    char statusmsg[80];
+    time_t statusmsg_time;
     struct termios orig_termios;
 };
 
