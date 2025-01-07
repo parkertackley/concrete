@@ -7,6 +7,7 @@
 #include "terminal.h"
 #include "definestruct.h"
 #include "editoroperations.h"
+#include "fileio.h"
 
 void editorMoveCursor(int key);
 void editorProcessKeypress();

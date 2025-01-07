@@ -55,6 +55,10 @@ void editorProcessKeypress() {
             exit(0);
             break;
 
+        case CTRL_KEY('s'):
+            editorSave();
+            break;
+
         case BACKSPACE:
         case CTRL_KEY('h'):
         case DEL_KEY:
