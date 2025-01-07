@@ -1,7 +1,5 @@
 #include "inputfile.h"
-#include "definestruct.h"
 
-#include <unistd.h>
 
 void editorMoveCursor(int key) {
     erow *row = (E.cy >= E.numrows) ? NULL : &E.row[E.cy];
@@ -47,6 +45,7 @@ void editorProcessKeypress() {
     int c = editorReadKey();
 
     switch (c) {
+
         case CTRL_KEY('q'):
             write(STDOUT_FILENO, "\x1b[2J", 4);     // clears screen
             write(STDOUT_FILENO, "\x1b[H", 3);      // cursor to top right
@@ -84,6 +83,10 @@ void editorProcessKeypress() {
         case ARROW_RIGHT:
         case ARROW_DOWN:
             editorMoveCursor(c);
+            break;
+
+        default:
+            editorInsertChar(c);
             break;
     }
 }

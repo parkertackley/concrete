@@ -2,6 +2,7 @@
 #define _BSD_SOURCE
 #define _GNU_SOURCE
 
+#include "editoroperations.h"
 #include "definestruct.h"
 #include "terminal.h"
 #include "rowoperations.h"
