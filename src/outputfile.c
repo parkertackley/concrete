@@ -124,7 +124,7 @@ void editorRefreshScreen() {
     editorDrawStatusBar(&ab);
     editorDrawMessageBar(&ab);
 
-    char buf[32];                                                                                   // 
+    char buf[32];                                                                                   
     snprintf(buf, sizeof(buf), "\x1b[%d;%dH", (E.cy - E.rowoff) + 1, (E.rx - E.coloff) + 1);        // these lines move the cursor to the position stored
     abAppend(&ab, buf, strlen(buf));                                                                // in cx, cy but as 1-indexed like the terminal uses
 
