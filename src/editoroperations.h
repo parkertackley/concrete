@@ -5,5 +5,6 @@
 #include "rowoperations.h"
 
 void editorInsertChar(int c);
+void editorDelChar();
 
 #endif
