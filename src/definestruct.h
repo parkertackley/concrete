@@ -28,11 +28,18 @@ enum editorKey {
     PAGE_DOWN
 };
 
+enum editorHighlight {
+    HL_NORMAL = 0,
+    HL_NUMBER,
+    HL_MATCH
+};
+
 typedef struct erow {
     int size;
     int rsize;
     char *chars;
     char *render;
+    unsigned char *hl;
 } erow;
 
 struct editorConfig {   // saves the original terminal flags

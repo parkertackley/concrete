@@ -4,6 +4,8 @@
 #include "appendbuffer.h"
 #include "definestruct.h"
 #include "rowoperations.h"
+#include "syntaxhighlighting.h"
+
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>

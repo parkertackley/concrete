@@ -5,6 +5,7 @@
 #include <string.h>
 #include "definestruct.h"
 #include "editoroperations.h"
+#include "syntaxhighlighting.h"
 
 int editorRowCxToRx(erow *row, int cx);
 int editorRowRxToCx(erow *row, int cx);

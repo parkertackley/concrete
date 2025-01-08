@@ -11,6 +11,7 @@
 #include "appendbuffer.h"
 #include "outputfile.h"
 #include "inputfile.h"
+#include "syntaxhighlighting.h"
 
 void initEditor() {
     E.cx = 0;
