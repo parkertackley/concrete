@@ -34,6 +34,20 @@ enum editorHighlight {
     HL_MATCH
 };
 
+#define HL_HIGHLIGHT_NUMBERS (1 << 0)
+
+struct editorSyntax {
+    char *filetype;
+    char **filematch;
+    int flags;
+};
+
+extern char *C_HL_extensions[];
+
+extern struct editorSyntax HLDB[];
+
+int getHLDBEntries();
+
 typedef struct erow {
     int size;
     int rsize;
@@ -54,6 +68,7 @@ struct editorConfig {   // saves the original terminal flags
     char *filename;
     char statusmsg[80];
     time_t statusmsg_time;
+    struct editorSyntax *syntax;
     struct termios orig_termios;
 };
 
