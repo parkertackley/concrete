@@ -1,7 +1,7 @@
 #define _DEFAULT_SOURCE
 #define _BSD_SOURCE
 #define _GNU_SOURCE
-// hello from concrete editor!
+
 #include "editoroperations.h"
 #include "definestruct.h"
 #include "terminal.h"
