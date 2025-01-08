@@ -7,6 +7,7 @@
 #include "editoroperations.h"
 
 int editorRowCxToRx(erow *row, int cx);
+int editorRowRxToCx(erow *row, int cx);
 void editorUpdateRow(erow *row);
 void editorInsertRow(int at, char *s, size_t len);
 void editorFreeRow(erow *row);

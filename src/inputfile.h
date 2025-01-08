@@ -8,9 +8,10 @@
 #include "terminal.h"
 #include "definestruct.h"
 #include "editoroperations.h"
+#include "find.h"
 #include "fileio.h"
 
-char *editorPrompt(char *prompt);
+char *editorPrompt(char *prompt, void (callback)(char *, int));
 void editorMoveCursor(int key);
 void editorProcessKeypress();
 
