@@ -7,6 +7,7 @@
 #include <string.h>
 #include <fcntl.h>
 
+#include "inputfile.h"
 #include "definestruct.h"
 #include "rowoperations.h"
 #include "terminal.h"
